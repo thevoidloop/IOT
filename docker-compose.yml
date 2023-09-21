@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  node-app:
+    build: 
+      context: .
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    environment:
+      - DATABASE_HOST=db
+      - DATABASE_USER=voidloop
+      - DATABASE_PASSWORD=arduino
+      - DATABASE_NAME=NodeMCUDB
+
+  db:
+    image: mysql:lasted
+    container_name: db
+    environment:
+      MYSQL_ROOT_PASSWORD: arduino
+      MYSQL_DATABASE: NodeMCUDB
+      MYSQL_USER: voidloop
+      MYSQL_PASSWORD: arduino
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+
+volumes:
+  db_data:
