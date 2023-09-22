@@ -3,23 +3,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class CardCustom2 extends ConsumerWidget {
-  const CardCustom2({super.key, required this.text, required this.lamp, required this.icon});
+class CardLamp1 extends ConsumerWidget {
+  const CardLamp1({super.key, required this.text, required this.icon});
 
   final String text;
-  final int lamp;
   final IconData icon;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final powerAsync = ref.watch(getLamp1PowerProvider);
     final size = MediaQuery.of(context).size;
-    return Container(
+    return SizedBox(
         width: size.width * 0.20,
         child: powerAsync.when(
           data: (power) {
             return Card(
-              color: (power == 1) ? Color.fromRGBO(66, 32, 140, 1) : null,
+              color: (power == 1) ? const Color(0xFF5D51DA) : null,
               child: Column(
                 children: [
                   Padding(

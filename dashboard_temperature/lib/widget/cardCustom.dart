@@ -10,7 +10,7 @@ class CardCustom extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final averageTemperature = ref.watch(getTemperatureProvider);
     final size = MediaQuery.of(context).size;
-    return Container(
+    return SizedBox(
       width: size.width * 0.5,
       child: Card(
         color: const Color(0xFF614ED9),
@@ -25,7 +25,7 @@ class CardCustom extends ConsumerWidget {
                 child: averageTemperature.when(
                   data: (data) => Text(data, style: GoogleFonts.roboto(fontSize: 50, fontWeight: FontWeight.w900)),
                   error: (error, _) => Text(error.toString()),
-                  loading: () => CircularProgressIndicator(),
+                  loading: () => const CircularProgressIndicator(),
                 ))
           ],
         ),

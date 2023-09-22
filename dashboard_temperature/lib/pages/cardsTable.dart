@@ -1,5 +1,6 @@
 import 'package:dashboard_temperature/widget/cardCustom.dart';
-import 'package:dashboard_temperature/widget/cardCustom2.dart';
+import 'package:dashboard_temperature/widget/cardLamp1.dart';
+import 'package:dashboard_temperature/widget/cardLamp2.dart';
 import 'package:flutter/material.dart';
 
 class CardsTable extends StatelessWidget {
@@ -12,14 +13,14 @@ class CardsTable extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        CardCustom(),
-        SizedBox(height: 20),
+        const CardCustom(),
+        const SizedBox(height: 20),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            CardCustom2(text: 'Lampara 1', lamp: 1, icon: Icons.lightbulb),
+            const CardLamp1(text: 'Lampara 1', icon: Icons.lightbulb),
             SizedBox(width: size.width * 0.05),
-            CardCustom2(text: 'Lampara 2', lamp: 1, icon: Icons.lightbulb),
+            const CardLamp2(text: 'Lampara 2', icon: Icons.lightbulb),
           ],
         )
       ],

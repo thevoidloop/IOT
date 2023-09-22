@@ -7,13 +7,14 @@ class DrawerCustom extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return Drawer(
+    return SizedBox(
       width: size.width * 0.2,
-      child: ListView(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          SizedBox(height: size.height * 0.15),
-          const ItemDrawerCustom(text: 'Home', icon: Icons.home_filled),
-          const ItemDrawerCustom(text: 'History', icon: Icons.history),
+          SizedBox(height: size.height * 0.10),
+          const ItemDrawerCustom(text: 'Inicio', icon: Icons.home_filled, indexSelect: true),
+          const ItemDrawerCustom(text: 'Historial', icon: Icons.history, indexSelect: false),
         ],
       ),
     );

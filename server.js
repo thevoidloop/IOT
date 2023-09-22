@@ -77,30 +77,87 @@ app.get('/getLamp1PowerValue', (req, res) => {
   });
 });
 
+app.get('/setDataLampara2', (req, res) => {
+  const query = `INSERT INTO lamp2 (power, inicio) VALUES(1, NOW());`;
 
+  db.query(query, (err, result) => {
+    if (err) {
+      return res.send(err);
+    }
+    res.send('Datos ingresados exitosamente');
+  });
+});
 
+app.get('/updateDataLampara2', (req, res) => {
+  const newPowerValue = 0; // Valor en duro para "power"
 
+  // Crea y ejecuta la consulta SQL
+  const query = `
+    UPDATE lamp2
+    SET power = ?, final = NOW()
+    WHERE ID = (SELECT MAXID FROM (SELECT MAX(ID) AS MAXID FROM lamp2) AS TEMP);
+  `;
 
+  db.query(query, [newPowerValue], (err, result) => {
+    if (err) {
+      return res.send(err);
+    }
+    res.send('Datos actualizados exitosamente');
+  });
+});
 
+app.get('/getLamp2PowerValue', (req, res) => {
+  // Crea y ejecuta la consulta SQL
+  const query = `
+    SELECT power
+    FROM lamp2
+    ORDER BY ID DESC
+    LIMIT 1;
+  `;
 
+  db.query(query, (err, result) => {
+    if (err) {
+      return res.send(err);
+    }
+    if (result.length > 0) {
+      res.json({ power: result[0].power });
+    } else {
+      res.send('No se encontraron registros');
+    }
+  });
+});
+
+app.get('/getLamp1History', (req, res) => {
+  const query = 'SELECT power, inicio, `final` FROM lamp1;';
+  
+  db.query(query, (err, result) => {
+    if (err) {
+      console.error('Error ejecutando la query:', err);
+      return res.status(500).send('Error ejecutando la query');
+    }
+    
+    if (result.length > 0) {
+      res.json(result);
+    } else {
+      res.send('No se encontraron registros');
+    }
+  });
+});
 
 
 app.get('/getAverageTemperature', (req, res) => {
   const query = `
-    SELECT AVG(temperature) as average_temperature 
-    FROM (
-      SELECT temperature 
-      FROM SensorData 
-      ORDER BY id DESC 
-      LIMIT 10
-    ) AS last_10_records;
+  SELECT temperature
+  FROM SensorData
+  ORDER BY ID DESC
+  LIMIT 1;
   `;
 
   db.query(query, (err, result) => {
     if (err) {
       return res.status(500).json({ error: err.message });
     }
-    res.json({ averageTemperature: result[0].average_temperature });
+    res.json({ averageTemperature: result[0].temperature });
   });
 });
 
